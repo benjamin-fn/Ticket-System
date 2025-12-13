@@ -1,0 +1,15 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+html, body, #root { height: 100%; }
+:root {
+  --color-primary: #dc143c; /* Crimson */
+  --color-light: #d3d3d3;   /* LightGray */
+}
+
+body {
+  @apply bg-[var(--color-light)] text-gray-900;
+  font-family: "Inter", sans-serif;
+}
+
