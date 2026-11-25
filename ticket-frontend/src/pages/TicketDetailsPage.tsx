@@ -7,15 +7,17 @@ import type { Ticket } from "@/shared/api/tickets";
 // FRONTEND STATUS
 type FrontStatus = "Open" | "InProgress" | "Closed";
 
-// BACKEND STATUS
+// BACKEND STATUS (svenska)
 type ApiStatus = "Inkommet" | "Paagende" | "Klart";
 
+// MAPPING API → FRONTEND
 const toFrontendStatus: Record<ApiStatus, FrontStatus> = {
   Inkommet: "Open",
   Paagende: "InProgress",
   Klart: "Closed",
 };
 
+// MAPPING FRONTEND → API
 const toApiStatus: Record<FrontStatus, ApiStatus> = {
   Open: "Inkommet",
   InProgress: "Paagende",
@@ -130,7 +132,6 @@ export default function TicketDetailsPage() {
       <div className="max-w-xl mx-auto bg-white border border-gray-200 rounded-xl p-6 shadow-sm space-y-4">
         <h2 className="text-xl font-semibold mb-2">Edit Ticket</h2>
 
-        {/* Title */}
         <div>
           <label className="block text-sm font-medium">Title</label>
           <input
@@ -143,7 +144,6 @@ export default function TicketDetailsPage() {
           />
         </div>
 
-        {/* Description */}
         <div>
           <label className="block text-sm font-medium">Description</label>
           <textarea
@@ -156,7 +156,6 @@ export default function TicketDetailsPage() {
           />
         </div>
 
-        {/* Priority */}
         <div>
           <label className="block text-sm font-medium">Priority</label>
           <select
@@ -175,7 +174,6 @@ export default function TicketDetailsPage() {
           </select>
         </div>
 
-        {/* Flag */}
         <div className="flex items-center gap-2">
           <input
             type="checkbox"
@@ -187,7 +185,6 @@ export default function TicketDetailsPage() {
           <label className="text-sm">Flagged</label>
         </div>
 
-        {/* Status */}
         <div>
           <p className="text-sm font-medium">Status: {ticket.status}</p>
 
@@ -210,7 +207,6 @@ export default function TicketDetailsPage() {
           )}
         </div>
 
-        {/* Buttons */}
         <div className="flex gap-3 pt-4">
           <button
             onClick={saveChanges}

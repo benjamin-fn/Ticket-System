@@ -1,9 +1,9 @@
-import type { ReactNode } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { useUser } from "@/components/UserProvider";
+import { useUser } from "./UserProvider";
+import { LogOut, Ticket, PlusCircle, Home } from "lucide-react";
 
-export default function AppLayout({ children }: { children: ReactNode }) {
-  const { logout } = useUser();
+export default function AppLayout({ children }: { children: React.ReactNode }) {
+  const { user, logout } = useUser();
   const navigate = useNavigate();
 
   function handleLogout() {
@@ -12,45 +12,39 @@ export default function AppLayout({ children }: { children: ReactNode }) {
   }
 
   return (
-    <div className="min-h-screen flex flex-col bg-[var(--color-light)] text-gray-900">
-      {/* Header */}
-      <header className="bg-white shadow-sm border-b border-gray-200 px-6 py-4 flex justify-between items-center">
-        <div className="flex items-center gap-3">
-          <h1 className="text-xl font-bold text-[var(--color-primary)] tracking-tight">
-            Ticket System
-          </h1>
-        </div>
+    <div className="flex min-h-screen bg-gray-100">
+      {/* Sidebar */}
+      <aside className="w-64 bg-white border-r border-gray-200 p-5 flex flex-col">
+        <h1 class-length="text-xl font-bold mb-6">Ticket System</h1>
 
-        <nav className="flex items-center gap-5 text-sm font-medium">
-          <Link
-            to="/dashboard"
-            className="text-gray-700 hover:text-[var(--color-primary)] transition"
-          >
-            Dashboard
-          </Link>
-          <Link
-            to="/tickets/new"
-            className="text-gray-700 hover:text-[var(--color-primary)] transition"
-          >
-            New Ticket
+        <nav className="flex flex-col gap-3 text-sm">
+          <Link to="/dashboard" className="flex items-center gap-2 p-2 rounded hover:bg-gray-100">
+            <Home size={18} /> Dashboard
           </Link>
 
+          <Link to="/tickets" className="flex items-center gap-2 p-2 rounded hover:bg-gray-100">
+            <Ticket size={18} /> Tickets
+          </Link>
+
+          <Link to="/tickets/new" className="flex items-center gap-2 p-2 rounded hover:bg-gray-100">
+            <PlusCircle size={18} /> New Ticket
+          </Link>
+        </nav>
+
+        {/* USER INFO */}
+        <div className="mt-auto pt-6 border-t border-gray-200">
+          <p className="text-xs text-gray-500">{user?.email}</p>
           <button
             onClick={handleLogout}
-            className="text-[var(--color-primary)] border border-[var(--color-primary)] px-3 py-1.5 rounded-lg hover:bg-[var(--color-primary)] hover:text-white transition"
+            className="flex items-center gap-2 text-sm mt-2 text-red-600 hover:underline"
           >
-            Logout
+            <LogOut size={16} /> Logout
           </button>
-        </nav>
-      </header>
+        </div>
+      </aside>
 
-      {/* Main content */}
-      <main className="flex-1 p-6 sm:p-10">{children}</main>
-
-      {/* Footer (optional) */}
-      <footer className="text-center text-xs text-gray-500 py-4 border-t border-gray-200">
-        © {new Date().getFullYear()} Ticket System — All rights reserved.
-      </footer>
+      {/* Main area */}
+      <main className="flex-1 p-10">{children}</main>
     </div>
   );
 }
